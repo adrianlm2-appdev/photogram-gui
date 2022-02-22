@@ -62,4 +62,14 @@ class PhotosController < ApplicationController
 
   #render(:template => "photo_templates/update.html.erb")
   end 
+
+  def comment
+#parameters: {"input_photo_id"=>"777", "input_author_id"=>"", "input_body"=>"", "controller"=>"photos", "action"=>"comment"}
+
+the_id = params.fetch("input_photo_id")
+matching_photos = Photo.where({ :id => the_id })
+the_photo = matching_photos.at(0)
+
+redirect_to("/photos/" + the_photo.id.to_s)
+  end
 end 
