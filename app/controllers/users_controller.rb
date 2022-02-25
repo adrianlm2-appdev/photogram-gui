@@ -31,17 +31,17 @@ class UsersController < ApplicationController
     a_new_user.save
   
     #render(:template => "photo_templates/create.html.erb")
-    redirect_to("/users/" + a_new_user.id.to_s)
+    redirect_to("/users/" + a_new_user.username)
     end 
   
     def update 
-      input_user = params.fetch("input_username")
+      input_user = params.fetch("modify_id")
 
-      a_new_user = User.new
-      a_new_user.username = input_user
+      a_new_user = User.where({ :id => input_user }).at(0)
+      a_new_user.username = params.fetch("input_username")
       a_new_user.save
     
       #render(:template => "photo_templates/create.html.erb")
-      redirect_to("/users/" + a_new_user.id.to_s)
+      redirect_to("/users/" + a_new_user.username)
     end 
 end

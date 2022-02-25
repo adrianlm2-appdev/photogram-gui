@@ -67,8 +67,19 @@ class PhotosController < ApplicationController
 #parameters: {"input_photo_id"=>"777", "input_author_id"=>"", "input_body"=>"", "controller"=>"photos", "action"=>"comment"}
 
 the_id = params.fetch("input_photo_id")
+the_commenter = params.fetch("input_author_id")
+the_body = params.fetch("input_body")
+
 matching_photos = Photo.where({ :id => the_id })
 the_photo = matching_photos.at(0)
+
+new_comment = Comment.new 
+
+new_comment.author_id = the_commenter
+new_comment.photo_id = the_id
+new_comment.body = the_body
+
+new_comment.save
 
 redirect_to("/photos/" + the_photo.id.to_s)
   end
